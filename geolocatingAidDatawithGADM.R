@@ -1,7 +1,7 @@
 library(countrycode)
 library(sp)
 library(maptools)
-path<-"c:/Users/floordress/Download/bitteloeschen/" #your local file path where the GADM data will be stored
+path<-"" #your local file path where the GADM data will be stored
 aiddata<-"path/level_1a.csv" #path to your data
 wb<-read.csv(aiddata,colClasses="character",encoding="UTF-8") #loading data
 
@@ -15,7 +15,6 @@ rg[is.na(rg[,2]),2]<-"XKO" #kosovo could not be transformed in ISO3
 url1<-"http://biogeo.ucdavis.edu/data/gadm2.8/shp/"
 url2<-"_adm_shp.zip"
 url<-cbind(rg[,2],paste(url1,rg[,2],url2,sep="")) 
-url
 for (i in 1:nrow(url)) {
   temp <- tempfile()
   download.file(url[i,2],temp)
@@ -29,7 +28,6 @@ for (i in 1:nrow(url)) {
 t3<-wb[,c("longitude","latitude")]
 coords <- as.data.frame(cbind(as.numeric(t3[,1]),as.numeric(t3[,2])))
 points <- SpatialPoints(coords)
-
 p3<-"_adm2.shp"
 rgnew<-data.frame(rg,NA,NA,NA)
 
